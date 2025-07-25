@@ -14,26 +14,28 @@ const SingleRecipe = () => {
     const recipe = data.find((recipe) => params.id == recipe.id)
     const { register, handleSubmit, reset } = useForm({
         defaultValues:{
-            image: recipe.image,
-            title: recipe.title,
-            desc: recipe.desc,
-            ingr: recipe.ingredients,
-            inst: recipe.instructions,
-            category: recipe.category,
+            image: recipe?.image,
+            title: recipe?.title,
+            desc: recipe?.desc,
+            ingr: recipe?.ingredients,
+            inst: recipe?.instructions,
+            category: recipe?.category,
         }
     })
 
-    const SubmitHandler = (recipe) => {
+    const UpdateHandler = (recipe) => {
         const index = data.findIndex((recipe) => params.id == recipe.id)
         const copydata = [...data]
         copydata[index] = { ...copydata[index], ...recipe }
         setdata(copydata)
+        localStorage.setItem("recipes",  JSON.stringify(copydata))
         toast.success("Recipe Updated!")
     }
 
     const DeleteHandler = () => {
         const filterdata = data.filter((r) => r.id != params.id)
         setdata(filterdata)
+        localStorage.setItem("recipes",  JSON.stringify(filterdata))
         toast.success("Recipe Deleted!")
         // navigate("/recipes")
     }
@@ -46,7 +48,7 @@ const SingleRecipe = () => {
                 </div>
             </div>
             <div className='right w-1/2 p-2'>
-                <form onSubmit={handleSubmit(SubmitHandler)}>
+                <form onSubmit={handleSubmit(UpdateHandler)}>
                     <input className="block p-2 border-b outline-none" {...register("image")} type="url" placeholder="Enter recipe image URL" />
                     <small className="text-sm text-red-400">this is the error</small>
 
