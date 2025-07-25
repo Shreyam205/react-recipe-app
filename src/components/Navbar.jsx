@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { MdFavorite } from "react-icons/md";
 
 const Navbar = () => {
   return (
@@ -10,7 +11,9 @@ const Navbar = () => {
             Recipes
         </NavLink>
         <NavLink className={(e)=> e.isActive ? "text-red-400" : ""} to="/favorites">
-            Favorites
+            <div className='flex items-center gap-1'>
+                Favorites<MdFavorite className='mt-1' />
+            </div>
         </NavLink>
         <NavLink className={(e)=> e.isActive ? "text-red-400" : ""} to="/about">
             About
